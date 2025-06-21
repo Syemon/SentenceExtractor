@@ -54,7 +54,13 @@ class SentenceTest {
                         Collections.emptyList()),
                 Arguments.of(
                         "           ",
-                        Collections.emptyList())
+                        Collections.emptyList()),
+                Arguments.of(
+                        "What\the  shouted was shocking:  停在那儿, 你这肮脏的掠夺者!",
+                        List.of("he", "shocking", "shouted", "was", "What", "你这肮脏的掠夺者", "停在那儿")),
+                Arguments.of(
+                        "   Why was he directing  his  anger at me?",
+                        List.of("anger", "at", "directing", "he", "his", "me", "was", "Why"))
         );
     }
 
@@ -67,13 +73,7 @@ class SentenceTest {
 
         //when/then
         assertThat(sut.toXml())
-                .isEqualTo("""
-                        <sentence>
-                          <word>a</word>
-                          <word>had</word>
-                          <word>lamb</word>
-                          <word>little</word>
-                          <word>Mary</word>
-                        </sentence>""");
+                .isEqualTo(
+                        "<sentence><word>a</word><word>had</word><word>lamb</word><word>little</word><word>Mary</word></sentence>");
     }
 }

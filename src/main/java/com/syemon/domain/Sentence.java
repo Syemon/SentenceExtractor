@@ -11,7 +11,7 @@ public class Sentence {
     public static final String NEW_LINE = "\n";
     public static final String XML_SENTENCE_START_TAG = "<sentence>";
     public static final String XML_SENTENCE_END_TAG = "</sentence>";
-    public static final String XML_WORD_START_TAG = "  <word>";
+    public static final String XML_WORD_START_TAG = "<word>";
     public static final String XML_WORD_END_TAG = "</word>";
     List<String> words;
 
@@ -33,19 +33,23 @@ public class Sentence {
 
     public String toXml() {
         StringBuilder xml = new StringBuilder();
-        xml.append(XML_SENTENCE_START_TAG)
-                .append(NEW_LINE);
-        words.forEach(word -> xml
+        xml.append(XML_SENTENCE_START_TAG);
+        words.stream().map(Sentence::escapeSpecialCharacters)
+                .forEach(word -> xml
                 .append(XML_WORD_START_TAG).append(word).append(XML_WORD_END_TAG)
-                .append(NEW_LINE)
         );
-
         xml.append(XML_SENTENCE_END_TAG);
         return xml.toString();
     }
 
     private static String sanitizeRawText(String text) {
         text = text.trim();
-        return text.replaceAll("[^a-zA-Z ]", "");
+        text = text.replaceAll("(?<!\\p{L})['-]|['-](?!\\p{L})", " ");
+        return text.replaceAll("[^\\p{L}'\\- \\t]", " ");
+    }
+
+    private static String escapeSpecialCharacters(String word) {
+        word = word.replaceAll("'", "&apos;");
+        return word;
     }
 }
