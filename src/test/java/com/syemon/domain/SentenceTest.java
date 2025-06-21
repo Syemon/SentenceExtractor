@@ -1,5 +1,6 @@
 package com.syemon.domain;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -55,5 +56,24 @@ class SentenceTest {
                         "           ",
                         Collections.emptyList())
         );
+    }
+
+    @Test
+    void toXml() {
+        //given
+        Sentence sentence = new Sentence(
+                List.of("a", "had", "lamb", "little", "Mary")
+        );
+
+        //when/then
+        assertThat(sentence.toXml())
+                .isEqualTo("""
+                        <sentence>
+                          <word>a</word>
+                          <word>had</word>
+                          <word>lamb</word>
+                          <word>little</word>
+                          <word>Mary</word>
+                        </sentence>""");
     }
 }
