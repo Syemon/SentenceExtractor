@@ -8,10 +8,11 @@ import java.util.stream.Stream;
 
 @Value
 public class Sentence {
-    public static final String XML_SENTENCE_START_TAG = "<sentence>\n";
+    public static final String NEW_LINE = "\n";
+    public static final String XML_SENTENCE_START_TAG = "<sentence>";
     public static final String XML_SENTENCE_END_TAG = "</sentence>";
     public static final String XML_WORD_START_TAG = "  <word>";
-    public static final String XML_WORD_END_TAG = "</word>\n";
+    public static final String XML_WORD_END_TAG = "</word>";
     List<String> words;
 
     public static Optional<Sentence> fromText(String text) {
@@ -32,10 +33,11 @@ public class Sentence {
 
     public String toXml() {
         StringBuilder xml = new StringBuilder();
-        xml.append(XML_SENTENCE_START_TAG);
+        xml.append(XML_SENTENCE_START_TAG)
+                .append(NEW_LINE);
         words.forEach(word -> xml
-                .append(XML_WORD_START_TAG)
-                .append(word).append(XML_WORD_END_TAG)
+                .append(XML_WORD_START_TAG).append(word).append(XML_WORD_END_TAG)
+                .append(NEW_LINE)
         );
 
         xml.append(XML_SENTENCE_END_TAG);
