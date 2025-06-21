@@ -18,14 +18,14 @@ class SentenceTest {
     @MethodSource("fromTextProvider")
     void fromText(String text, List<String> expectedWords) {
         //when
-        Optional<Sentence> sentence = Sentence.fromText(text);
+        Optional<Sentence> sut = Sentence.fromText(text);
 
         //then
         if (expectedWords.isEmpty()) {
-            assertThat(sentence).isNotPresent();
+            assertThat(sut).isNotPresent();
         } else {
-            assertThat(sentence).isPresent();
-            Sentence actual = sentence.get();
+            assertThat(sut).isPresent();
+            Sentence actual = sut.get();
 
             assertThat(actual.getWords()).containsExactlyElementsOf(expectedWords);
         }
@@ -61,12 +61,12 @@ class SentenceTest {
     @Test
     void toXml() {
         //given
-        Sentence sentence = new Sentence(
+        Sentence sut = new Sentence(
                 List.of("a", "had", "lamb", "little", "Mary")
         );
 
         //when/then
-        assertThat(sentence.toXml())
+        assertThat(sut.toXml())
                 .isEqualTo("""
                         <sentence>
                           <word>a</word>
