@@ -44,6 +44,8 @@ public class Sentence {
 
     private static String sanitizeRawText(String text) {
         text = text.trim();
+        text = Abbreviation.substituteSpecialSignsWithPlaceholders(text);
+
         text = text.replaceAll("(?<!\\p{L})['-]|['-](?!\\p{L})", " ");
 
         text = text.replaceAll("[^\\p{L}'\\-_ \\t]", " ").trim();
