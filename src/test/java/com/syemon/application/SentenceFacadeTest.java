@@ -2,7 +2,6 @@ package com.syemon.application;
 
 import com.syemon.domain.OutputFormat;
 import com.syemon.domain.SentenceXmlExtractor;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -11,9 +10,14 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class SentenceFacadeTest {
 
-    SentenceFacade sut = new SentenceFacade(new SentenceXmlExtractor());
+    SentenceFacade sut = new SentenceFacade(
+            new SentenceXmlExtractor(),
+            new SentenceRequestValidator()
+    );
 
     private static final String EXPECTED_XML = """
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -35,15 +39,19 @@ class SentenceFacadeTest {
 
     @Test
     void extract() throws URISyntaxException {
+        //given
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
         String resourcePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource("small.in")).toURI()).toString();
+        SentenceExtractorRequest request = new SentenceExtractorRequest(resourcePath, OutputFormat.XML);
 
-        sut.extract(resourcePath, OutputFormat.XML);
+        //when
+        sut.extract(request);
 
+        //then
         String output = outContent.toString();
 
-        Assertions.assertThat(output).isEqualTo(EXPECTED_XML);
+        assertThat(output).isEqualTo(EXPECTED_XML);
     }
 }

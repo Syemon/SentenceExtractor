@@ -13,7 +13,6 @@ public class SentenceExtractor {
     }
 
     public void run(String[] args) {
-
         String filePath = null;
         for (int i = 0; i < args.length; i++) {
             if (FILE_COMMAND.equals(args[i]) && i + 1 < args.length) {
@@ -22,8 +21,9 @@ public class SentenceExtractor {
             }
         }
 
-        //There is not CSV implementation
+        //There is no CSV implementation
         OutputFormat format = OutputFormat.XML;
-        sentenceFacade.extract(filePath, format);
+        SentenceExtractorRequest request = new SentenceExtractorRequest(filePath, format);
+        sentenceFacade.extract(request);
     }
 }

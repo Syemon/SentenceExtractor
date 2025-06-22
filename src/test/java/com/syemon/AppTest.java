@@ -2,7 +2,6 @@ package com.syemon;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -30,7 +29,6 @@ class AppTest {
     }
 
     @Test
-    @Disabled
     void testJarExecution() throws Exception {
         //given
         String jarPath = Paths.get("target", "SentenceExtractor-1.0-SNAPSHOT.jar").toString();
@@ -58,8 +56,11 @@ class AppTest {
                 "java", "-jar", jarPath, "--file", inputFile
         );
         pb.redirectErrorStream(true);
+
+        //when
         Process process = pb.start();
 
+        //then
         String output;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             output = reader.lines().collect(Collectors.joining(System.lineSeparator()));

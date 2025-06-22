@@ -6,7 +6,7 @@ A command-line tool that extracts sentences and words from text files, outputtin
 # How to run
 To use it first you need to build a project. Execute this command inside downloaded project.
 ```
-mvn clean test install
+mvn clean package
 ```
 
 then execute jar file with parameter ```--file```, for example ```/Users/user/example_file.txt```
