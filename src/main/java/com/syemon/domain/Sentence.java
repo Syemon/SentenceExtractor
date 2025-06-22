@@ -45,7 +45,14 @@ public class Sentence {
     private static String sanitizeRawText(String text) {
         text = text.trim();
         text = text.replaceAll("(?<!\\p{L})['-]|['-](?!\\p{L})", " ");
-        return text.replaceAll("[^\\p{L}'\\- \\t]", " ");
+
+        text = text.replaceAll("[^\\p{L}'\\-_ \\t]", " ").trim();
+
+        text = Abbreviation.replacePlaceholder(text);
+
+        text = text.replace("_", "");
+
+        return text;
     }
 
     private static String escapeSpecialCharacters(String word) {

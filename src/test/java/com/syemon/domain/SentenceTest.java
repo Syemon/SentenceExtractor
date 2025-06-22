@@ -60,7 +60,12 @@ class SentenceTest {
                         List.of("he", "shocking", "shouted", "was", "What", "你这肮脏的掠夺者", "停在那儿")),
                 Arguments.of(
                         "   Why was he directing  his  anger at me?",
-                        List.of("anger", "at", "directing", "he", "his", "me", "was", "Why"))
+                        List.of("anger", "at", "directing", "he", "his", "me", "was", "Why")),
+                Arguments.of(
+                        """
+                                I was just standing there watching Mr___DOT___ Young marching around - he\s
+                                was    furious.""",
+                        List.of("around", "furious", "he", "I", "just", "marching", "Mr.", "standing", "there", "was", "was", "watching", "Young"))
         );
     }
 
