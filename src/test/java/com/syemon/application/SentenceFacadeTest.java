@@ -1,5 +1,7 @@
 package com.syemon.application;
 
+import com.syemon.domain.OutputFormat;
+import com.syemon.domain.SentenceXmlExtractor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +13,7 @@ import java.util.Objects;
 
 class SentenceFacadeTest {
 
-    SentenceFacade sut = new SentenceFacade();
+    SentenceFacade sut = new SentenceFacade(new SentenceXmlExtractor());
 
     private static final String EXPECTED_XML = """
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -38,7 +40,7 @@ class SentenceFacadeTest {
 
         String resourcePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource("small.in")).toURI()).toString();
 
-        sut.extract(resourcePath);
+        sut.extract(resourcePath, OutputFormat.XML);
 
         String output = outContent.toString();
 
