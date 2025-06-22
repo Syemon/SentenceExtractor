@@ -2,6 +2,7 @@ package com.syemon.domain;
 
 import lombok.Value;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -23,8 +24,7 @@ public class Sentence {
         }
 
         List<String> words = Stream.of(sanitizedText.split("\\s+"))
-                .sorted(String.CASE_INSENSITIVE_ORDER)
-                .toList();
+                .sorted(String.CASE_INSENSITIVE_ORDER.thenComparing(Comparator.reverseOrder()))                .toList();
 
         return Optional.of(
                 new Sentence(words)
@@ -43,7 +43,6 @@ public class Sentence {
     }
 
     private static String sanitizeRawText(String text) {
-        text = text.trim();
         text = Abbreviation.substituteSpecialSignsWithPlaceholders(text);
 
         text = text.replaceAll("(?<!\\p{L})['-]|['-](?!\\p{L})", " ");
@@ -51,8 +50,6 @@ public class Sentence {
         text = text.replaceAll("[^\\p{L}'\\-_ \\t]", " ").trim();
 
         text = Abbreviation.replacePlaceholder(text);
-
-        text = text.replace("_", "");
 
         return text;
     }
