@@ -1,10 +1,5 @@
 package com.syemon.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
 public enum Abbreviation {
 
     MR("Mr.", "Mr"),
@@ -15,6 +10,11 @@ public enum Abbreviation {
 
     private final String value;
     private final String valueWithoutSpecialSign;
+
+    Abbreviation(String value, String valueWithoutSpecialSign) {
+        this.value = value;
+        this.valueWithoutSpecialSign = valueWithoutSpecialSign;
+    }
 
     public static boolean endsWithAbbreviation(String text) {
         String upperCaseText = text.toUpperCase();

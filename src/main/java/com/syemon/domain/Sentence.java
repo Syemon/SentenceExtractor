@@ -1,6 +1,5 @@
 package com.syemon.domain;
 
-import lombok.Value;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Comparator;
@@ -8,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Value
 public class Sentence {
     public static final String NEW_LINE = "\n";
     public static final String XML_SENTENCE_START_TAG = "<sentence>";
@@ -16,7 +14,15 @@ public class Sentence {
     public static final String XML_WORD_START_TAG = "<word>";
     public static final String XML_WORD_END_TAG = "</word>";
 
-    List<String> words;
+    private final List<String> words;
+
+    public Sentence(List<String> words) {
+        this.words = words;
+    }
+
+    public List<String> getWords() {
+        return words;
+    }
 
     public static Optional<Sentence> fromText(String text) {
         String sanitizedText = sanitizeRawText(text);
