@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Abbreviation {
 
-    // Titles
     MR("Mr.", "Mr"),
     MRS("Mrs.", "Mrs");
 
@@ -30,7 +29,6 @@ public enum Abbreviation {
     public static String replacePlaceholder(String text) {
         return text.replace(DOT_PLACEHOLDER, DOT);
     }
-
 
     public static String substituteSpecialSignsWithPlaceholders(String text) {
         for (Abbreviation abbreviation : values()) {

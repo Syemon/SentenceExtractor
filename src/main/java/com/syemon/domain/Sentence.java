@@ -15,6 +15,7 @@ public class Sentence {
     public static final String XML_SENTENCE_END_TAG = "</sentence>";
     public static final String XML_WORD_START_TAG = "<word>";
     public static final String XML_WORD_END_TAG = "</word>";
+
     List<String> words;
 
     public static Optional<Sentence> fromText(String text) {
