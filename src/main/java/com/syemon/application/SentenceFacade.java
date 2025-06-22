@@ -32,28 +32,57 @@ public class SentenceFacade {
 
     //TODO: move into separate class
     private static void extractXml(BufferedReader reader) throws IOException {
-        String line;
         System.out.println(XML_START_TAG);
         System.out.println(XML_TEXT_START_TAG);
 
         StringBuilder rawSentence = new StringBuilder();
+        String line;
+
         while ((line = reader.readLine()) != null) {
-            List<Sentence> sentences = new ArrayList<>();
-            for (char letter : line.toCharArray()) {
-                rawSentence.append(letter);
-                if (END_OF_SENTENCE_CHARS.contains(letter) && !Abbreviation.endsWithAbbreviation(rawSentence.toString())) {
-                    Optional<Sentence> optionalSentence = Sentence.fromText(rawSentence.toString());
-                    if (optionalSentence.isPresent()) {
-                        sentences.add(optionalSentence.get());
-                    }
-                    rawSentence = new StringBuilder();
-                }
-            }
-
-            sentences.forEach(sentence -> System.out.println(sentence.toXml()));
-
+            processLine(line, rawSentence);
         }
+
+        processRemainingSentence(rawSentence);
+
         System.out.println(XML_TEXT_END_TAG);
+    }
+
+    private static void processLine(String line, StringBuilder rawSentence) {
+        for (char letter : line.toCharArray()) {
+            rawSentence.append(letter);
+
+            if (isEndOfSentence(letter, rawSentence)) {
+                outputSentence(rawSentence);
+                rawSentence.setLength(0);
+            }
+        }
+
+        addSpaceBeforeNextLine(rawSentence);
+    }
+
+    private static void addSpaceBeforeNextLine(StringBuilder rawSentence) {
+        if (!rawSentence.isEmpty()) {
+            rawSentence.append(' ');
+        }
+    }
+
+    private static boolean isEndOfSentence(char letter, StringBuilder rawSentence) {
+        return END_OF_SENTENCE_CHARS.contains(letter) &&
+                !Abbreviation.endsWithAbbreviation(rawSentence.toString());
+    }
+
+    private static void outputSentence(StringBuilder rawSentence) {
+        String sentenceText = rawSentence.toString().trim();
+        if (!sentenceText.isEmpty()) {
+            Optional<Sentence> optionalSentence = Sentence.fromText(sentenceText);
+            optionalSentence.ifPresent(sentence -> System.out.println(sentence.toXml()));
+        }
+    }
+
+    private static void processRemainingSentence(StringBuilder rawSentence) {
+        if (!rawSentence.isEmpty()) {
+            outputSentence(rawSentence);
+        }
     }
 
 }
