@@ -1,6 +1,7 @@
 package com.syemon.domain;
 
 import lombok.Value;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -45,9 +46,9 @@ public class Sentence {
     private static String sanitizeRawText(String text) {
         text = Abbreviation.substituteSpecialSignsWithPlaceholders(text);
 
-        text = text.replaceAll("(?<!\\p{L})['-]|['-](?!\\p{L})", " ");
+        text = text.replaceAll("(?<!\\p{L})['''’`-](?!\\p{L})", " ");
 
-        text = text.replaceAll("[^\\p{L}'\\-_ \\t]", " ").trim();
+        text = text.replaceAll("[^\\p{L}'''’`\\-_ \\t]", " ").trim();
 
         text = Abbreviation.replacePlaceholder(text);
 
@@ -55,7 +56,7 @@ public class Sentence {
     }
 
     private static String escapeSpecialCharacters(String word) {
-        word = word.replaceAll("'", "&apos;");
-        return word;
+        String result = StringEscapeUtils.escapeXml11(word);
+        return result.replace("’", "&apos;");
     }
 }

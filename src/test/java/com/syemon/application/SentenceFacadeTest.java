@@ -1,7 +1,6 @@
 package com.syemon.application;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -32,7 +31,6 @@ class SentenceFacadeTest {
             <sentence><word>a</word><word>be</word><word>But</word><word>challenge</word><word>financial</word><word>have</word><word>huge</word><word>importantly</word><word>matter</word><word>might</word><word>most</word><word>no</word><word>of</word><word>outstanding</word><word>ready</word><word>serve</word><word>specialists</word><word>team</word><word>to</word><word>we</word><word>what</word><word>you</word><word>your</word></sentence>
             </text>""";
 
-    @Disabled
     @Test
     void extract() throws URISyntaxException {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();

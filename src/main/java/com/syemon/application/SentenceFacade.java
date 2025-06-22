@@ -42,7 +42,7 @@ public class SentenceFacade {
 
         processRemainingSentence(rawSentence);
 
-        System.out.println(XML_TEXT_END_TAG);
+        System.out.print(XML_TEXT_END_TAG);
     }
 
     private static void processLine(String line, StringBuilder rawSentence) {

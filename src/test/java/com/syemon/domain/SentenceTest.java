@@ -65,7 +65,10 @@ class SentenceTest {
                         """
                                 I was just standing there watching Mr. Young marching around - he\s
                                 was    furious.""",
-                        List.of("around", "furious", "he", "I", "just", "marching", "Mr.", "standing", "there", "was", "was", "watching", "Young"))
+                        List.of("around", "furious", "he", "I", "just", "marching", "Mr.", "standing", "there", "was", "was", "watching", "Young")),
+                Arguments.of(
+                        "   you’d",
+                        List.of("you’d"))
         );
     }
 
